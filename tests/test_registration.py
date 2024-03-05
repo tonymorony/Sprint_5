@@ -3,9 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from utils.login_data_generators import generate_email, generate_valid_password
 
 
-def test_registration_valid_data_success(generate_email, generate_valid_password):
+def test_registration_valid_data_success():
     driver = webdriver.Chrome()
 
     driver.get('https://stellarburgers.nomoreparties.site/register')
@@ -14,10 +15,10 @@ def test_registration_valid_data_success(generate_email, generate_valid_password
     driver.find_element(By.XPATH, ".//fieldset[1]/div/div/input").send_keys("Антон")
 
     # Находим и заполняем поле "Email"
-    driver.find_element(By.XPATH, ".//fieldset[2]/div/div/input").send_keys(generate_email)
+    driver.find_element(By.XPATH, ".//fieldset[2]/div/div/input").send_keys(generate_email())
 
     # Находим и заполняем поле "Пароль"
-    driver.find_element(By.XPATH, ".//fieldset[3]/div/div/input").send_keys(generate_valid_password)
+    driver.find_element(By.XPATH, ".//fieldset[3]/div/div/input").send_keys(generate_valid_password())
 
     # Кликаем на кнопку "Зарегистрироваться"
     driver.find_element(By.XPATH, "//*[contains(text(), 'Зарегистрироваться')]").click()
@@ -30,7 +31,7 @@ def test_registration_valid_data_success(generate_email, generate_valid_password
     driver.quit()
 
 
-def test_registration_short_password_show_error(generate_email):
+def test_registration_short_password_show_error():
     driver = webdriver.Chrome()
 
     driver.get("https://stellarburgers.nomoreparties.site/register")
@@ -39,7 +40,7 @@ def test_registration_short_password_show_error(generate_email):
     driver.find_element(By.XPATH, ".//fieldset[1]/div/div/input").send_keys("Антон")
 
     # Находим и заполняем поле "Email"
-    driver.find_element(By.XPATH, ".//fieldset[2]/div/div/input").send_keys(generate_email)
+    driver.find_element(By.XPATH, ".//fieldset[2]/div/div/input").send_keys(generate_email())
 
     # Находим и заполняем поле "Пароль" паролем менее минимальной длины в 6 символов
     driver.find_element(By.XPATH, ".//fieldset[3]/div/div/input").send_keys('pwd')
