@@ -63,7 +63,7 @@ class TestLogin:
         chrome_browser.get(PagesURL.forgot_password_page_url)
         chrome_browser.find_element(*TestLocators.LOGIN_LINK).click()
 
-        WebDriverWait(chrome_browser, 30).until(PagesURL.forgot_password_page_url)
+        WebDriverWait(chrome_browser, 30).until(EC.url_changes(PagesURL.forgot_password_page_url))
         assert chrome_browser.current_url == PagesURL.login_page_url
 
         # Находим и заполняем поле "Email"

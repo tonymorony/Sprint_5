@@ -17,12 +17,12 @@ class TestLocators:
     DASHBOARD_LINK = By.XPATH, "//a[@class='AppHeader_header__link__3D_hX' and @href='/account']"
     CONSTRUCTOR_LINK = By.XPATH, "//a[@class='AppHeader_header__link__3D_hX' and @href='/']"
     LOGIN_LINK = By.XPATH, "//a[contains(text(), 'Войти')]"
-    BURGER_LOGOTYPE_LINK = By.XPATH, "//div[(@class = 'AppHeader_header__logo__2D0X2')]/following-sibling::a"
+    BURGER_LOGOTYPE = By.XPATH, "//div[(@class = 'AppHeader_header__logo__2D0X2')]"
 
     # Разделы конструктора
     SAUCES_SECTION = By.XPATH, "//span[(@class = 'text text_type_main-default' and text()='Соусы')]/parent::div"
-    BUNS_SECTION = By.XPATH, "//span[(@class = 'text text_type_main-default' and text()='Начинки')]/parent::div"
-    TOPPINGS_SECTION = By.XPATH, "//span[(@class = 'text text_type_main-default' and text()='Булки')]/parent::div"
+    BUNS_SECTION = By.XPATH, "//span[(@class = 'text text_type_main-default' and text()='Булки')]/parent::div"
+    TOPPINGS_SECTION = By.XPATH, "//span[(@class = 'text text_type_main-default' and text()='Начинки')]/parent::div"
 
     # Ошибки
     NOT_VALID_PASSWORD_ERROR = By.XPATH, "//p[contains(text(), 'Некорректный пароль')]"
