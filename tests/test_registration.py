@@ -1,4 +1,3 @@
-import pytest
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from utils.login_data_generators import generate_email, generate_valid_password

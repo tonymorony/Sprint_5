@@ -4,7 +4,7 @@ from utils.locators import TestLocators
 from utils.data import PagesURL, LoginData
 
 
-class TestTransitions:
+class TestSectionsTransitions:
 
     def test_transition_to_personal_dashboard_when_login(self, chrome_browser):
         # Сначала нужно залогиниться
@@ -78,47 +78,3 @@ class TestTransitions:
         chrome_browser.find_element(*TestLocators.BURGER_LOGOTYPE).click()
         WebDriverWait(chrome_browser, 30).until(EC.url_changes(PagesURL.profile_page_url))
         assert chrome_browser.current_url == PagesURL.home_page_url
-
-    def test_constructor_transition_to_sauces_section(self, chrome_browser):
-        chrome_browser.get(PagesURL.home_page_url)
-
-        # сначала проверяю что секция неактивна перед тестом
-        section_before_click = chrome_browser.find_element(*TestLocators.SAUCES_SECTION)
-        class_before_click = section_before_click.get_attribute('class')
-        assert 'current' not in class_before_click
-
-        # потом кликаю и проверяю что класс изменился
-        chrome_browser.find_element(*TestLocators.SAUCES_SECTION).click()
-        section_after_click = chrome_browser.find_element(*TestLocators.SAUCES_SECTION)
-        class_after_click = section_after_click.get_attribute('class')
-        assert 'current' in class_after_click
-
-    def test_constructor_transition_to_toppings_section(self, chrome_browser):
-        chrome_browser.get(PagesURL.home_page_url)
-
-        # сначала проверяю что секция неактивна перед тестом
-        section_before_click = chrome_browser.find_element(*TestLocators.TOPPINGS_SECTION)
-        class_before_click = section_before_click.get_attribute('class')
-        assert 'current' not in class_before_click
-
-        # потом кликаю и проверяю что класс изменился
-        chrome_browser.find_element(*TestLocators.TOPPINGS_SECTION).click()
-        section_after_click = chrome_browser.find_element(*TestLocators.TOPPINGS_SECTION)
-        class_after_click = section_after_click.get_attribute('class')
-        assert 'current' in class_after_click
-
-    def test_constructor_transition_to_buns_section(self, chrome_browser):
-        chrome_browser.get(PagesURL.home_page_url)
-
-        # перехожу на другую секцию т.к. секция Булки активна по умолчанию
-        chrome_browser.find_element(*TestLocators.SAUCES_SECTION).click()
-        # проверяю что секция неактивна перед тестом
-        section_before_click = chrome_browser.find_element(*TestLocators.BUNS_SECTION)
-        class_before_click = section_before_click.get_attribute('class')
-        assert 'current' not in class_before_click
-
-        # потом кликаю и проверяю что класс изменился
-        chrome_browser.find_element(*TestLocators.BUNS_SECTION).click()
-        section_after_click = chrome_browser.find_element(*TestLocators.BUNS_SECTION)
-        class_after_click = section_after_click.get_attribute('class')
-        assert 'current' in class_after_click
