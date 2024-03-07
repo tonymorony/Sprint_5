@@ -38,8 +38,4 @@ class TestRegistration:
         chrome_browser.find_element(*TestLocators.REGISTER_BUTTON).click()
 
         # Проверяем что появилась ошибка валидации поля пароль с текстом "Некорректный пароль"
-        try:
-            element = chrome_browser.find_element(*TestLocators.NOT_VALID_PASSWORD_ERROR)
-            assert element is not None, "Element not found"
-        except AssertionError as e:
-            pytest.fail(str(e))
+        assert chrome_browser.find_element(*TestLocators.NOT_VALID_PASSWORD_ERROR)
