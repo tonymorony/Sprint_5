@@ -1,49 +1,34 @@
+from selenium.webdriver.support.wait import WebDriverWait
 from utils.locators import TestLocators
 from utils.data import PagesURL
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestConstructorTransitions:
 
     def test_constructor_transition_to_sauces_section(self, chrome_browser):
         chrome_browser.get(PagesURL.home_page_url)
-
-        # сначала проверяю что секция неактивна перед тестом
-        section_before_click = chrome_browser.find_element(*TestLocators.SAUCES_SECTION)
-        class_before_click = section_before_click.get_attribute('class')
-        assert 'current' not in class_before_click
-
-        # потом кликаю и проверяю что класс изменился
         chrome_browser.find_element(*TestLocators.SAUCES_SECTION).click()
-        section_after_click = chrome_browser.find_element(*TestLocators.SAUCES_SECTION)
-        class_after_click = section_after_click.get_attribute('class')
-        assert 'current' in class_after_click
+        assert WebDriverWait(chrome_browser, 30).until(
+            EC.text_to_be_present_in_element_attribute(TestLocators.SAUCES_SECTION, 'class', 'current'))
 
     def test_constructor_transition_to_toppings_section(self, chrome_browser):
         chrome_browser.get(PagesURL.home_page_url)
-
-        # сначала проверяю что секция неактивна перед тестом
-        section_before_click = chrome_browser.find_element(*TestLocators.TOPPINGS_SECTION)
-        class_before_click = section_before_click.get_attribute('class')
-        assert 'current' not in class_before_click
-
-        # потом кликаю и проверяю что класс изменился
         chrome_browser.find_element(*TestLocators.TOPPINGS_SECTION).click()
-        section_after_click = chrome_browser.find_element(*TestLocators.TOPPINGS_SECTION)
-        class_after_click = section_after_click.get_attribute('class')
-        assert 'current' in class_after_click
+        assert WebDriverWait(chrome_browser, 30).until(
+            EC.text_to_be_present_in_element_attribute(TestLocators.TOPPINGS_SECTION, 'class', 'current'))
 
     def test_constructor_transition_to_buns_section(self, chrome_browser):
         chrome_browser.get(PagesURL.home_page_url)
 
-        # перехожу на другую секцию т.к. секция Булки активна по умолчанию
-        chrome_browser.find_element(*TestLocators.SAUCES_SECTION).click()
-        # проверяю что секция неактивна перед тестом
-        section_before_click = chrome_browser.find_element(*TestLocators.BUNS_SECTION)
-        class_before_click = section_before_click.get_attribute('class')
-        assert 'current' not in class_before_click
+        # сначала перехожу на другую секцию т.к. секция Булки активна по умолчанию
+        chrome_browser.find_element(*TestLocators.TOPPINGS_SECTION).click()
+        # ожидаю окончания скролла, т.к. пока он не закончится нельзя перейти в другую секцию
+        WebDriverWait(chrome_browser, 30).until(
+            EC.text_to_be_present_in_element_attribute(TestLocators.TOPPINGS_SECTION, 'class', 'current'))
 
-        # потом кликаю и проверяю что класс изменился
         chrome_browser.find_element(*TestLocators.BUNS_SECTION).click()
-        section_after_click = chrome_browser.find_element(*TestLocators.BUNS_SECTION)
-        class_after_click = section_after_click.get_attribute('class')
-        assert 'current' in class_after_click
+        # секция становится активной только после окончания скролла
+        # при этом если идет переход через секцию то промежуточная секция становится на время активной
+        assert WebDriverWait(chrome_browser, 30).until(
+            EC.text_to_be_present_in_element_attribute(TestLocators.BUNS_SECTION, 'class', 'current'))
